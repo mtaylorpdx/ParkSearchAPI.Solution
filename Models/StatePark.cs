@@ -12,7 +12,5 @@ namespace ParksApi.Models
     [Required]
     public string StateParkCity { get; set; }
     public string StateParkDescription { get; set; }
-    [Required]
-    public int NationalParkId { get; set; } = 0;
   }
 }
