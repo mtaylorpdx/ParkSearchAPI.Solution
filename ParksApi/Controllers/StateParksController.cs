@@ -18,7 +18,6 @@ namespace ParksApi.Controllers
       _db = db;
     }
 
-    // [AllowAnonymous]
     [HttpGet]
     public ActionResult<IEnumerable<StatePark>> Get(string name, string state, string city, string description)
     {
