@@ -41,6 +41,7 @@ namespace ParksApi.Controllers
       return query.ToList();
     }
 
+    [Authorize]
     [HttpPost]
     public void Post([FromBody] NationalPark nationalPark)
     {
@@ -54,6 +55,7 @@ namespace ParksApi.Controllers
       return _db.NationalParks.FirstOrDefault(entry => entry.NationalParkId == id);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] NationalPark nationalPark)
     {
@@ -62,6 +64,7 @@ namespace ParksApi.Controllers
       _db.SaveChanges();
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
