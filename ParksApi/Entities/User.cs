@@ -1,4 +1,4 @@
-namespace WebApi.Entities
+namespace ParksApi.Entities
 {
     public class User
     {
