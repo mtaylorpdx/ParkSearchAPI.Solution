@@ -1,4 +1,4 @@
-namespace WebApi.Helpers
+namespace ParksApi.Helpers
 {
     public class AppSettings
     {
