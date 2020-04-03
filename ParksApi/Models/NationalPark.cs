@@ -7,7 +7,7 @@ namespace ParksApi.Models
   {
     public NationalPark()
     {
-      this.StateParks = new HashSet<StatePark>();
+      // this.StateParks = new HashSet<StatePark>();
     }
 
     public int NationalParkId { get; set; }
@@ -19,6 +19,6 @@ namespace ParksApi.Models
     public string NationalParkCity { get; set; }
     public string NationalParkDescription { get; set; }
     
-    public virtual ICollection<StatePark> StateParks { get; set; }
+    // public virtual ICollection<StatePark> StateParks { get; set; }
   }
 }

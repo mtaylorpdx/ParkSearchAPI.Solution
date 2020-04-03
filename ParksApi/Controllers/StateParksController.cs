@@ -7,40 +7,68 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ParksApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class StateParksController : ControllerBase
+  [Route("api/[controller]")]
+  [ApiController]
+  public class StateParksController : ControllerBase
+  {
+    private ParksApiContext _db;
+
+    public StateParksController(ParksApiContext db)
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+      _db = db;
     }
+
+    // [AllowAnonymous]
+    [HttpGet]
+    public ActionResult<IEnumerable<StatePark>> Get(string name, string state, string city, string description)
+    {
+      var query = _db.StateParks.AsQueryable();
+      if (name != null)
+      {
+        query = query.Where(entry => entry.StateParkName == name);
+      }
+      if (state != null)
+      {
+        query = query.Where(entry => entry.StateParkState == state);
+      }
+      if (city != null)
+      {
+        query = query.Where(entry => entry.StateParkCity == city);
+      }
+      if (description != null)
+      {
+        query = query.Where(entry => entry.StateParkDescription == description);
+      }
+      return query.ToList();
+    }
+
+    [HttpPost]
+    public void Post([FromBody] StatePark statePark)
+    {
+      _db.StateParks.Add(statePark);
+      _db.SaveChanges();
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<StatePark> GetAction(int id)
+    {
+      return _db.StateParks.FirstOrDefault(entry => entry.StateParkId == id);
+    }
+
+    [HttpPut("{id}")]
+    public void Put(int id, [FromBody] StatePark statePark)
+    {
+      statePark.StateParkId = id;
+      _db.Entry(statePark).State = EntityState.Modified;
+      _db.SaveChanges();
+    }
+
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+      var stateParkToDelete = _db.StateParks.FirstOrDefault(entry => entry.StateParkId == id);
+      _db.StateParks.Remove(stateParkToDelete);
+      _db.SaveChanges();
+    }
+  }
 }
