@@ -10,7 +10,7 @@ namespace ParksApi.Models
 
       }
 
-    public DbSet<StatePark> NationalParks { get; set; }
+    public DbSet<NationalPark> NationalParks { get; set; }
     public DbSet<StatePark> StateParks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
