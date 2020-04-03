@@ -7,40 +7,68 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ParksApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NationalParksController : ControllerBase
+  [Route("api/[controller]")]
+  [ApiController]
+  public class NationalParksController : ControllerBase
+  {
+    private ParksApiContext _db;
+
+    public NationalParksController(ParksApiContext db)
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+      _db = db;
     }
+
+    // [AllowAnonymous]
+    [HttpGet]
+    public ActionResult<IEnumerable<NationalPark>> Get(string name, string state, string city, string description)
+    {
+      var query = _db.NationalParks.AsQueryable();
+      if (name != null)
+      {
+        query = query.Where(entry => entry.NationalParkName == name);
+      }
+      if (state != null)
+      {
+        query = query.Where(entry => entry.NationalParkState == state);
+      }
+      if (city != null)
+      {
+        query = query.Where(entry => entry.NationalParkCity == city);
+      }
+      if (description != null)
+      {
+        query = query.Where(entry => entry.NationalParkDescription == description);
+      }
+      return query.ToList();
+    }
+
+    [HttpPost]
+    public void Post([FromBody] NationalPark nationalPark)
+    {
+      _db.NationalParks.Add(nationalPark);
+      _db.SaveChanges();
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<NationalPark> GetAction(int id)
+    {
+      return _db.NationalParks.FirstOrDefault(entry => entry.NationalParkId == id);
+    }
+
+    [HttpPut("{id}")]
+    public void Put(int id, [FromBody] NationalPark nationalPark)
+    {
+      nationalPark.NationalParkId = id;
+      _db.Entry(nationalPark).State = EntityState.Modified;
+      _db.SaveChanges();
+    }
+
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+      var nationalParkToDelete = _db.NationalParks.FirstOrDefault(entry => entry.NationalParkId == id);
+      _db.NationalParks.Remove(nationalParkToDelete);
+      _db.SaveChanges();
+    }
+  }
 }
