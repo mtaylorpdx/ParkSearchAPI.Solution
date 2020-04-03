@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace ParkSearch.Solution
+namespace ParksApi.Solution
 {
     public class Startup
     {
@@ -41,7 +41,7 @@ namespace ParkSearch.Solution
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
