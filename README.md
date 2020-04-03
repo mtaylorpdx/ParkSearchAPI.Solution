@@ -85,7 +85,7 @@ DELETE /api/nationalparks/{id}
 
 #### Example Query
 ```sh
-https://localhost:5000/api/nationalparks/?nationalparkname=yellowstone&state=wyoming
+http://localhost:5000/api/nationalparks/?nationalparkname=yellowstone&state=wyoming
 ```
 
 ### State Parks
@@ -110,7 +110,7 @@ DELETE /api/stateparks/{id}
 
 #### Example Query
 ```sh
-https://localhost:5000/api/stateparks/?stateparkname=smith+rock
+http://localhost:5000/api/stateparks/?stateparkname=smith+rock
 ```
 
 
