@@ -11,13 +11,12 @@ namespace ParksApi.Models
     }
 
     public int NationalParkId { get; set; }
-    // [Required]
+    [Required]
     public string NationalParkName { get; set; }
-    // [Required]
+    [Required]
     public string NationalParkState { get; set; }
-    // [Required]
+    [Required]
     public string NationalParkCity { get; set; }
     public string NationalParkDescription { get; set; }
-    
   }
 }

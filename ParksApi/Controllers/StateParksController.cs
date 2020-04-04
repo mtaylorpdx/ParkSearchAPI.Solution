@@ -41,7 +41,6 @@ namespace ParksApi.Controllers
       return query.ToList();
     }
 
-    [Authorize]
     [HttpPost]
     public void Post([FromBody] StatePark statePark)
     {
@@ -54,7 +53,6 @@ namespace ParksApi.Controllers
     {
       return _db.StateParks.FirstOrDefault(entry => entry.StateParkId == id);
     }
-    [Authorize]
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] StatePark statePark)
     {
@@ -62,7 +60,6 @@ namespace ParksApi.Controllers
       _db.Entry(statePark).State = EntityState.Modified;
       _db.SaveChanges();
     }
-    [Authorize]
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
