@@ -57,6 +57,24 @@ http://127.0.0.1:5000
 
 Type `localhost:5000` to utilize Swagger
 
+## JWT (JSON Web Token)
+
+To create your authentication token
+
+1. Create POST request for localhost:5000/users/authenticate
+2. Input the following information into the Body:
+```sh
+{
+    "username": "test",
+    "password": "test"
+}
+```
+3. Click "Send"
+4. The API call should a "Token Key" - copy the token key
+5. Navigate to the "Authorization" tab in the dropdown menu for "Type" and select "OAuth2.0"
+6. Navigate to the "Access Token" input box within the "Authorization" tab and insert the token key described in step 5
+7. You should now have access to all endpoints that require authentication
+
 ## API Endpoints
 _Once you have installed this program, you can use these endpoints on your local host in your browser._
 
@@ -135,24 +153,3 @@ http://localhost:5000/api/stateparks/?stateparkname=smith+rock
 [MIT](https://choosealicense.com/licenses/mit/)
 
 Copyright (c) 2020 **_Matt Taylor_**
-
-
-
-
-
-How to test Token-Based Authentication & Authorization using Postman:
-1. create POST request for localhost:5000/users/authenticate
-2. input the following information into the Body:
-{
-    "username": "test",
-    "password": "test"
-}
-3. hit "send" on POST request
-4. verify that you receive a "200 ok" message
-5. the API call should then return information about the user along with a "Token Key" - copy the token key
----
-5. create GET request for localhost:5000/api/experiences
-6. navigate to the "Authorization" tab in the dropdown menu for "type" and select "OAuth2.0"
-7. navigate to the "Access Token" input box within the "Authorization" tab and insert the token key described in step 5
-8. hit "send" on GET request
-9. you should now have access to all endpoints that require authentication
